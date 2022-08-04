@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.util.concurrent.TimeUnit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -36,11 +34,14 @@ public class DemoApplication {
 	}
 	
 	// https://spring.io/guides/gs/consuming-rest/
+	// A RestTemplate, which uses the Jackson JSON processing library to process the incoming data.
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 	
+	// https://spring.io/guides/gs/consuming-rest/
+	// A CommandLineRunner that runs the RestTemplate (and, consequently, fetches our quotation) on startup.
 	/*
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception{
@@ -53,6 +54,7 @@ public class DemoApplication {
 	
 	// above rest end point not working,
 	// switching to local endpoint which should be running as part of 'restservice' exercise
+	// this needs to run as a separate service on different port (same port/same instance didn't work)
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception{
 		return args -> {
@@ -63,3 +65,4 @@ public class DemoApplication {
 	}
 	
 }
+
