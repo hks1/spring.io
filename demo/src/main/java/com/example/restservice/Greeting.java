@@ -1,12 +1,16 @@
 package com.example.restservice;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 // https://spring.io/guides/gs/rest-service/
 // Create a Resource Representation Class (to model the greeting representation)
 // To do so, provide a plain old Java object with fields, constructors, and accessors for the id and content data
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter @Setter
+@Getter @Setter @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Greeting {
 	
 	private final long id;
