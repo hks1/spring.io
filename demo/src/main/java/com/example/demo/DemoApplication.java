@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -13,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.accessingdatajpa.Customer;
+import com.example.accessingdatajpa.CustomerRepository;
 import com.example.consumingrest.Quote;
 import com.example.restservice.Greeting;
 
 @SpringBootApplication
 @RestController
-@ComponentScan(basePackages = {"com.example.demo", "com.example.restservice", "com.example.consumingrest"})
+@ComponentScan(basePackages = {"com.example.demo", "com.example.restservice", "com.example.consumingrest", "com.example.accessingdatajpa"})
+//@ComponentScan(basePackages = {"com.example.demo","com.example.accessingdatajpa"})
 public class DemoApplication {
 	
 	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
@@ -64,5 +69,50 @@ public class DemoApplication {
 		};
 	}
 	
+	// https://spring.io/guides/gs/accessing-data-jpa/
+	@Bean 
+	public CommandLineRunner demo(CustomerRepository repository) {
+		return args -> {
+			// save a few customers
+			repository.save(new Customer("Jack", "Bauer"));
+			repository.save(new Customer("Chloe", "O'Brian"));
+			repository.save(new Customer("Kim", "Bauer"));
+			repository.save(new Customer("David", "Palmer"));
+			repository.save(new Customer("Michelle", "Dessler"));
+			
+			// fetch all customers
+			log.info("Customers found with foundAll()");
+			log.info("-------------------------------");
+			for(Customer customer : repository.findAll()) {
+				log.info(customer.toString());
+			}
+			log.info("");
+			
+			// fetch an individual customer by ID
+			Optional<Customer> customer = repository.findById(1L);
+		      log.info("Customer found with findById(1L):");
+		      log.info("--------------------------------");
+		      log.info(customer.toString());
+		      log.info("");
+			
+		   // fetch customers by last name
+		      log.info("Customer found with findByLastName('Bauer'):");
+		    log.info("--------------------------------------------");
+		    repository.findByLastName("Bauer").forEach(bauer -> {
+		    	log.info(bauer.toString());
+		    });
+		    log.info("");;
+		};
+	}
+	
 }
+
+// The demo() method returns a CommandLineRunner bean that automatically runs the code when the application launches.
+
+/*
+ * By default, Spring Boot enables JPA repository support and looks in the package (and its subpackages) where @SpringBootApplication is located. 
+ * If your configuration has JPA repository interface definitions located in a package that is not visible, 
+ * you can point out alternate packages by using @EnableJpaRepositories and its type-safe basePackageClasses=MyRepository.class parameter.
+ *  
+ */
 
