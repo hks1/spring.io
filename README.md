@@ -65,6 +65,33 @@ spring.io
 
 By default, Spring Boot enables JPA repository support and looks in the package (and its subpackages) where @SpringBootApplication is located. If your configuration has JPA repository interface definitions located in a package that is not visible, you can point out alternate packages by using @EnableJpaRepositories and its type-safe basePackageClasses=MyRepository.class parameter.
 
+__Note:__ added AccessDataJpaApplication.java in com.example.accessingdatajpa with main method commented.
+without this class, app doesn't come up from DemoApplication class, gives error, CustomerRepository not found.
+when demo (@Bean) is executed from DemoApplication class, it prints each row twice because these rows have been already inserted once when called from AccessDataJpaApplication class
+
+[Accessing JPA Data with REST](https://spring.io/guides/gs/accessing-data-rest/)
+- Spring Data REST takes the features of Spring HATEOAS and Spring Data JPA and automatically combines them together.
+- Dependencies
+	- Rest Repositories, 
+	- Spring Data JPA, and 
+	- H2 Database
+- Create a Domain Object "Person"
+- Create a Person Repository
+	- import org.springframework.data.repository.PagingAndSortingRepository;
+	- import org.springframework.data.repository.query.Param;
+	- import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+	- _PagingAndSortingRepository_ is an interface defined in Spring Data Commons.
+- At runtime, Spring Data REST automatically creates an implementation of this interface. 
+- Then it uses the @RepositoryRestResource annotation to direct Spring MVC to create RESTful endpoints at /people.
+- @RepositoryRestResource is not required for a repository to be exported. 
+- It is used only to change the export details, such as using /people instead of the default value of /persons.
+- Spring Data REST builds on top of Spring MVC. 
+- It creates a collection of Spring MVC controllers, JSON converters, and other beans to provide a RESTful front end. 
+- These components link up to the Spring Data JPA backend. 
+- When you use Spring Boot, this is all autoconfigured. 
+- If you want to investigate how that works, by looking at the RepositoryRestMvcConfiguration in Spring Data REST.
+
+
 Next: refer "See Also" section of https://spring.io/guides/gs/rest-service/ </br>
 Next: refer "See Also" section of https://spring.io/guides/gs/consuming-rest/</br>
 Next: refer "Summary" and "See Also" sections of https://spring.io/guides/gs/accessing-data-jpa/</br>
