@@ -22,7 +22,7 @@ import com.example.restservice.Greeting;
 
 @SpringBootApplication
 @RestController
-@ComponentScan(basePackages = {"com.example.demo", "com.example.restservice", "com.example.consumingrest", "com.example.accessingdatajpa"})
+@ComponentScan(basePackages = {"com.example.demo", "com.example.restservice", "com.example.consumingrest",  "com.example.accessingdatarest"})
 //@ComponentScan(basePackages = {"com.example.demo","com.example.accessingdatajpa"})
 public class DemoApplication {
 	
