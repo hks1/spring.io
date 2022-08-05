@@ -15,7 +15,7 @@ import lombok.ToString;
 // store Customer objects, each annotated as a JPA entity.
 
 @Entity
-@Getter @Setter @NoArgsConstructor @ToString
+@Getter @Setter @ToString
 public class Customer {
 	
 	@Id
