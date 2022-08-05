@@ -24,9 +24,15 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	
+	protected Customer() {}
+	
 	public Customer(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+	
+	public String toString() {
+		return String.format("id: %d, first name: %s, last name: %s", id, firstName, lastName);
 	}
 
 }

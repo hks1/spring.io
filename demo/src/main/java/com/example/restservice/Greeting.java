@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString
+//@Getter @Setter @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Greeting {
 	
@@ -19,6 +19,18 @@ public class Greeting {
 	public Greeting(long id, String content) {
 		this.id = id;
 		this.content = content;
+	}
+	
+	public long getId() {
+		return this.id;
+	}
+	
+	public String getContent() {
+		return this.content;
+	}
+	
+	public String toString() {
+		return String.format("id: %d, content: %s", id, content);
 	}
 
 }
